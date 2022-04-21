@@ -36,6 +36,7 @@ public:
         ZIGZAG    =    24,  // ZIGZAG mode is able to fly in a zigzag manner with predefined point A and point B
         SYSTEMID  =    25,  // System ID mode produces automated system identification signals in the controllers
         AUTOROTATE =   26,  // Autonomous autorotation
+        DRAWSTAR   =   27,
     };
 
     // constructor
@@ -1647,6 +1648,42 @@ private:
     uint16_t line_count = 0;        // current line number
     int16_t line_num = 0;           // target line number
     bool is_suspended;              // true if zigzag auto is suspended
+};
+
+class ModeDrawStar:public Mode {
+
+public:
+    // inherit constructor
+    using Mode::Mode;
+    bool init(bool ignore_checks) override;
+    void run() override;
+
+    Number mode_number() const override { return Number::DRAWSTAR; }
+    bool requires_GPS() const override { return true; }
+    // 家Α惠璶ΤGPS﹚
+    bool has_manual_throttle() const override { return false; }
+    // 家Αぃす砛も笆北猳
+    bool allows_arming(AP_Arming::Method method) const override { return false; }
+    // ぃす砛家Α秆玛
+    bool is_autopilot() const override { return true; }
+    // 家Α笆︽北
+    bool has_user_takeoff(bool must_navigate) const override { return false; }
+    // ぃす砛家Α钡癬ゲ斗琌いち家Α
+    bool in_guided_mode() const override { return true; }
+    // 家Α琌贺ま旧家Α
+
+protected:
+
+    const char *name() const override { return "DRAW_STAR"; }
+    const char *name4() const override { return "STAR"; }
+
+private:
+    Vector3f path[10];  // 翴皚
+    int path_num;  // 讽玡翴腹
+    void generate_path();  // ネΘ絬
+    void pos_control_start();  // 秨﹍竚北
+    void pos_control_run();  // 竚北秅戳秸ノㄧ计
+
 };
 
 #if MODE_AUTOROTATE_ENABLED == ENABLED

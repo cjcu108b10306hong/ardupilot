@@ -750,3 +750,8 @@
 #ifndef HAL_FRAME_TYPE_DEFAULT
 #define HAL_FRAME_TYPE_DEFAULT AP_Motors::MOTOR_FRAME_TYPE_X
 #endif
+
+//DrawStar mode  五角星航線模式
+#ifndef MODE_DRAWSTAR_ENABLED
+#define MODE_DRAWSTAR_ENABLED ENABLED
+#endif

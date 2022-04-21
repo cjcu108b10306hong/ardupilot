@@ -220,6 +220,7 @@ public:
     friend class ModeThrow;
     friend class ModeZigZag;
     friend class ModeAutorotate;
+    friend class ModeDrawStar;
 
     Copter(void);
 
@@ -489,6 +490,10 @@ private:
     // AC_Fence library to reduce fly-aways
 #if AC_FENCE == ENABLED
     AC_Fence fence;
+#endif
+
+#if MODE_DRAWSTAR_ENABLED == ENABLED
+    ModeDrawStar mode_drawstar;
 #endif
 
 #if AC_AVOID_ENABLED == ENABLED
